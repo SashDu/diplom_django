@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Подтверждение верификации{% endblock %}
+
+{% block style %}
+<!--<style>-->
+<!--    body {-->
+<!--    background-image: url("{% static 'img/fara4.gif' %}");-->
+<!--    background-repeat: no-repeat;-->
+<!--    background-size: 100% 100%;-->
+<!--    background-attachment: fixed;-->
+<!--}-->
+<!--</style>-->
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Поздравляем</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h4>Ваша учетная запись успешно подтверждена!</h4>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-secondary">Продолжить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

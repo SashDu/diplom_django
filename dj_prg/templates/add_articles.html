@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block title %}
+Добавление статьи
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <br>
+    <h2>Форма добавления статей</h2>
+    <br>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col"></div>  <!-- Левая пустая часть (3 позиции) -->
+        <div class="col-4 text-center">  <!-- Средняя часть с формой -->
+            <form class="row g-2" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-12 mb-1">
+                    {{ form.title }}
+                </div>
+                 <div class="col-12 mb-1">
+                    {{ form.anons }}
+                </div>
+                 <div class="col-12 mb-1">
+                    {{ form.summary }}
+                </div>
+                 <div class="col-12 mb-1">
+                    {{ form.date }}
+                 </div>
+                <div class="col-12 mb-1">
+                    {{ form.image }}
+                </div>
+                <br><button type="submit" class="btn btn-primary">Добавить запись</button>
+            </form>
+        </div>
+        <div class="col"></div>  <!-- Правая пустая часть (3 позиции) -->
+    </div>
+</div>
+{% endblock %}

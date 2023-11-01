@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block style %}
+<style>
+    body {
+    background-image: url("{% static 'img/gu7hb.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+</style>
+{% endblock %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block body %}
+<br>
+    <!-- Показываем ТЕКСТ Когда был выполнен вход -->
+    {% if user.is_authenticated %}
+        <style>
+            body {
+            background-image: url("{% static 'img/gu7hb.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+        </style>
+        <div class="container col-xl-10 col-xxl-8 px-4 text-white">
+            <h3>Вы не имеете доступа к странице регистрации.</h3>
+            <h4>Сперва необходимо <a href="/accounts/logout">выйти</a> из системы.</h4>
+        </div>
+    {% else %}
+        <!-- Показываем форму только тогда когда GET -->
+        {% if form %}
+        <div class="container col-xl-10 col-xxl-8 px-4"> <!-- Главный контейнер -->
+            <div class="row align-items-center g-lg-5">  <!-- Первая строка -->
+<!--                Настройка уведомлений с ошибками-->
+                {% if form.errors %}
+                   <div class="alert alert-dark alert-dismissible fade show col-9 mx-auto" role="alert" style="margin-top: 30px;">
+                    {{ form.errors }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                   </div>
+                {% endif %}
+
+<!--                <div class="col-4"></div>  &lt;!&ndash; Левая пустая часть (3 позиции) &ndash;&gt;-->
+                <div class="col-lg-7 text-center text-lg-start text-white">
+                    <h1 class="display-4 fw-bold lh-1 mb-3"><br>Пройдите авторизацию и окунитесь в мир качественных спортивных товаров</h1>
+                    <p class="col-lg-10 fs-4">На нашем сайте Вы сможете найти широкий ассортимент высококачественных товаров.</p>
+                </div>
+
+                <div class="col-md-10 mx-auto col-lg-5">
+                <br><br>
+                    <!-- --- ВСТАВКА ФОРМЫ --- -->
+                    <!-- В "action" вставляем маршрут по которому будет обрабатываться эта форма -->
+                    <form class="row g-2 p-md-4 border rounded-3 " method="post" action="">
+<!--                        bg-light если нужна светлая рамка-->
+                        {% csrf_token %}
+                        <!-- Первое поле (Логин) -->
+                        <div class="form-floating mb-2">
+                            {{ form.username }}
+                            <label for="floatingInput">{{ form.username.label }}:</label>
+                        </div>
+                        <!-- Второе поле (Email) -->
+                        <div class="form-floating mb-2">
+                            {{ form.email }}
+                            <label for="floatingInput">{{ form.email.label }}:</label>
+                        </div>
+                        <!-- Третье поле (Пароль) -->
+                        <div class="form-floating mb-2">
+                            {{ form.password1 }}
+                            <label for="floatingPassword">{{ form.password1.label }}:</label>
+                        </div>
+                        <!-- Четвертое поле (Подтверждение пароля) -->
+                        <div class="form-floating mb-2">
+                            {{ form.password2 }}
+                            <label for="floatingPassword">{{ form.password2.label }}:</label>
+                        </div>
+                        <!-- КНОПКА ОТПРАВКИ --> <button class="w-100 btn btn-lg btn-warning" type="submit">Отправить</button>
+                        <hr class="my-2">
+                        <small class="text-white">Нажимая кнопку "Отправить", Вы соглашаетесь с <a href="{% url 'agreement' %}">пользовательскими условиями.</a></small>
+                    </form>
+                </div>  <!-- Центральная часть -->
+                <div class="col-4"></div>  <!-- Правая пустая часть (3 позиции) -->
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Показываем ТЕКСТ УСПЕШНОЙ РЕГИСТРАЦИИ только тогда когда POST -->
+        {% if username %}
+        <style>
+            body {
+            background-image: url("{% static 'img/gu7hb.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+        </style>
+        <div class="container col-xl-10 col-xxl-8 px-4 text-white">
+            <h3>Регистрация пройдена успешно.</h3>
+            <h4>Ваш логин: <b>{{ username }}</b>. Теперь Вы можете перейти к авторизации на сайте.</h4>
+        </div>
+        {% endif %}
+
+        <!-- Показываем ТЕКСТ НЕ УСПЕШНОЙ РЕГИСТРАЦИИ только тогда когда POST -->
+        {% if error %}
+        <style>
+            body {
+            background-image: url("{% static 'img/gu7hb.jpg' %}");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+        </style>
+        <div class="container col-xl-10 col-xxl-8 px-4 text-white">
+            <h3>Регистрация завершилась неудачно!</h3>
+            <h4>Логин <u>{{ error }}</u> уже занят другим пользователем.</h4>
+        </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block style %}
+<style>
+    body {
+    background-image: url("{% static 'img/obichnii-fon.jpg' %}");
+<!--    background-repeat: no-repeat;-->
+<!--    background-size: 100% 100%;-->
+<!--    background-attachment: fixed;-->
+}
+</style>
+{% endblock %}
+
+{% block title %}Рейтинг{% endblock %}
+
+<!-- Вставка в точку входа "body" -->
+{% block body %}
+<div class="container">
+    <br>
+    <h2 class="text-center"><b>ТОП-15 магазинов спорттоваров по версии сайта "firmi.by"</b></h2>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">МЕСТО</th>
+                    <th scope="col">ЛОГО БРЕНДА</th>
+                    <th scope="col">ПРОИЗВОДИТЕЛЬ</th>
+                    <th scope="col">РЕЙТИНГ</th>
+                    <th scope="col">ОЦЕНКА PR</th>
+                </tr>
+            </thead>
+
+            <tboby>
+                {% for row in table_rating %}
+                <tr valign="middle">
+                    <th>{{ row.0 }}</th>
+                    <th><a href="{{ row.1 }}"><img src="{{ row.1 }}"></a></th>
+                    <th>{{ row.2 }}</th>
+                    <th>{{ row.3 }}</th>
+                    <th>{{ row.4 }}</th>
+                </tr>
+                {% endfor %}
+            </tboby>
+
+        </table>
+    </div>
+<!--    <br>-->
+</div>
+<br>
+{% endblock body %}
+

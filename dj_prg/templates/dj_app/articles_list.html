@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block title %}Статьи{% endblock %}
+
+{% block body %}
+<div class="container">
+    <br>
+<!--    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="get" action="{% url 'articles' %}">-->
+<!--        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search" name="search">-->
+<!--    </form>-->
+    <h2 align="left">Cтраница с полезными статьями для пользователей</h2>
+    <br>
+    {% if articles_list %}
+    {% for article in articles_list %}
+    <div class="card mb-3" style="max-width: 790px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ article.image.url }}" class="img-fluid rounded-start" alt="Photo">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{ article.title }}</h3>
+                    <h6 class="card-text">{{ article.anons }}</h6>
+                    <p class="card-text"><small class="text-body-secondary"><i>Опубликована {{ article.date }}</i></small></p>
+<!--                    <p class="card-text"><small class="text-body-secondary">Последнее обновление 3 мин. назад (обновление времени не допилено)</small></p>-->
+                    <a href="{{ article.get_absolute_url }}" class="btn btn-warning btn-sm">Читать далее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--        <br>-->
+    {% endfor %}
+
+    {% else %}
+    <h2>Записи в БД отсутствуют</h2>
+    {% endif %}
+    <!--    ВСТАВКА КНОПКИ-->
+    <a href="{% url 'add_articles' %}">
+        <button class="btn btn-success btn-sm"><i class="fa-solid fa-square-plus"></i> Добавить статью</button>
+    </a>
+
+
+    <!-- Кнопки перехода между страницами -->
+    <!-- request.path - текущий URl страницы -->
+    <!-- page_obj.has_previous/has_next - Есть ли страница (True) -->
+    <!-- page_obj.previous_page_number/next_page_number - Возвращают цифру предыдущей или следующей страницы соответственно -->
+    <div class="btn-group" role="group" aria-label="Second group">
+        {% if page_obj.has_previous %}
+        <a class="btn btn-sm btn-dark"
+           href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% else %}
+        <a class="btn btn-sm btn-dark" href="#">Предыдущая</a>
+        {% endif %}
+        <!-- Нумерация страниц-->
+        <a class="btn btn-sm btn-outline-dark" href="#">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</a>
+        {% if page_obj.has_next %}
+        <a class="btn btn-sm btn-dark" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>
+        {% else %}
+        <a class="btn btn-sm btn-dark" href="#">Следующая</a>
+        {% endif %}
+    </div>
+</div>
+<br>
+{% endblock %}

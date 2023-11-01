@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block title %}
+Удаление статьи
+{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <br>
+    <h2><b>Запрос на удаление статьи:</b></h2>
+    <h2>"{{ articles.title }}"</h2>
+    <br>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col"></div>  <!-- Левая пустая часть (3 позиции) -->
+        <div class="col-4 text-center">  <!-- Средняя пустая часть (3 позиции) -->
+            <form class="row g-2" method="post" action="">
+                {% csrf_token %}
+                <br><button type="submit" class="btn btn-danger">Подтверждаю удаление записи</button>
+                <br><a href="{% url 'articles' %}" class="btn btn-warning">Назад к списку статей</a>
+            </form>
+        </div>
+        <div class="col"></div>  <!-- Правая пустая часть (3 позиции) -->
+    </div>
+</div>
+{% endblock %}

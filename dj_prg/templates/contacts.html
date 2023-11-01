@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block style %}
+<style>
+    body {
+    background-image: url("{% static 'img/photo_2023-10-30_03-52-13.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+</style>
+{% endblock %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block body %}
+<!--<div class="container">-->
+    {% if form %}
+    <div class="container text-white">
+        <h2><b>Контактная информация</b></h2>
+        <br>
+        <h4><b>Реквизиты:</b> ООО "Спортивные Решения", УНП 00123456, свидетельство выдано администрацией Мингорисполкома, регистрация в реестре юридических лиц осуществлена 01.11.2022.</h4>
+        <h4><b>Юридический адрес:</b> г.Минск, ул.Жукова, д.29, офис 1.</h4>
+        <br>
+        <h4><b>Время работы:</b> Пн-Пт 10:00-20:00, Сб-Вс-выходной.</h4>
+        <h4><b>Телефон:</b> +375(29)666-66-66</h4>
+        <h4><b>E-mail:</b> support@sportingsolutions.by</h4>
+        <br>
+        <h2><b>Обратная связь</b></h2>
+    </div>
+    <!-- --- ВСТАВКА ФОРМЫ --- -->
+    <div class="container">
+        <div class="col-md-10 col-lg-5">
+        <br>
+            <!-- В "action" вставляем маршрут по которому будет обрабатываться эта форма -->
+            <form class="row g-2 p-md-4 border rounded-3 bg-grey" method="post" action="">
+                {% csrf_token %}
+                <!-- Первое поле (Имя) -->
+                <div class="col-12 mb-1">
+                    {{ form.name }}
+                </div>
+                <!-- Второе поле (Email) -->
+                <div class="col-12 mb-1">
+                    {{ form.email }}
+                </div>
+                <!-- Третье поле (Телефон) -->
+                <div class="col-12 mb-1">
+                    {{ form.phoneNumber }}
+                </div>
+                <!-- Четвертое поле (Сообщение) -->
+                <div class="form-floating mb-2">
+                    {{ form.message }}
+                    <label for="floatingInput">{{ form.message.label }}:</label>
+                </div>
+                <button class="w-100 btn btn-warning" type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="container card">
+<!--    Для карты google-->
+<!--    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2350.8161773074785!2d27.55870207610654!3d53.89947113319439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dbcfa656606d61%3A0x85e0ec8ffda77e14!2z0JrQvtC80L_RjNGO0YLQtdGA0L3QsNGPINCQ0LrQsNC00LXQvNC40Y8g0KjQkNCTINCc0LjQvdGB0Lo!5e0!3m2!1sru!2sby!4v1684360202972!5m2!1sru!2sby" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
+<!--    Для карты yandex-->
+    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ab9b7b61699c7cac4e1024a1d384f35f0eafcdb09c3d204fbca1d5c94defe5384&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+    </div>
+    <br>
+    {% endif %}
+
+    <!-- ПОСЛЕ ОБРАБОТКИ ФОРМЫ -->
+    {% if name %}
+    <div class="container text-white">
+        <br>
+        <h3>{{ name }}, Ваше обращение принято.</h3>
+        <h3>Мы свяжемся с Вами вскоре после его рассмотрения.</h3>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="container text-white">
+        <br>
+        <h3>Что-то пошло не так...</h3>
+        <h4><u>{{ error }}</u> , пожалуйста, заполните форму обратной связи заново.</h4>
+    </div>
+    {% endif %}
+<!--</div>-->
+{% endblock %}

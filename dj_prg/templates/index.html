@@ -1,0 +1,80 @@
+<!-- Подключение базового шаблона -->
+{% extends "base.html" %}
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block title %}
+Главная
+{% endblock %}
+
+<!-- Вставка в точку входа "body" -->
+{% block body %}
+<!-- Базовая проверка на Аутентификацию пользователя -->
+<!-- {{ user.is_authenticated }} - True/False вошли ли вы в аккаунт или нет-->
+<!-- {{ user.get_username }} - Username вошедшего аккаунта -->
+<br>
+<div class="container" align="justify">
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+        <h4><b>Рады приветствовать Вас на сайте, <u><i>администратор</i></u>!</b></h4>
+        {% else %}
+        <h4><b>Рады приветствовать Вас на нашем сайте! Вы вошли как <u><i>пользователь</i></u> сайта.</b></h4>
+        {% endif %}
+        <br>
+        <h4>Мы рады приветствовать вас в мире активного образа жизни и спорта. Наш магазин - ваш надежный партнер в достижении ваших спортивных целей и создании стиля, который отражает вашу страсть к активному образу жизни.</h4>
+        <br>
+        <h4>У нас вы найдете широкий ассортимент спортивных товаров, начиная от высококачественной спортивной одежды и обуви до современных тренажеров и аксессуаров, которые помогут вам оставаться в форме и добиваться выдающихся результатов. В нашем
+            <a href="products">интернет-каталоге</a> содержится довольно обширный ассортимент товара, который Вы можете подобрать для своих потребностей.</h4>
+        <br>
+        <h4><b>Каталог спортивных товаров по группам:</b></h4>
+        <br>
+        <div class="row" align="center">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card text-bg-secondary mb-3" style="width: 17rem;">
+                    <img src="{% static 'img/image_2023-10-30_04-21-47.jpg' %}" class="card-img-top" alt="Сноуборды, лыжи">
+                    <div class="card-body">
+                        <h4><a href="/products" class="card-title text-centre" style="text-decoration: none;">Сноуборды, лыжи</a></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card text-bg-secondary mb-3" style="width: 17rem;">
+                    <img src="{% static 'img/image_2023-10-30_04-22-41.jpg' %}" class="card-img-top" alt="Велосипеды">
+                    <div class="card-body">
+                        <h4><a href="/products" class="card-title text-centre" style="text-decoration: none;">Велосипеды</a></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card text-bg-secondary mb-3" style="width: 17rem;">
+                    <img src="{% static 'img/image_2023-10-30_04-33-17.jpg' %}" class="card-img-top" alt="Коньки">
+                    <div class="card-body">
+                        <h4><a href="/products" class="card-title text-centre" style="text-decoration: none;">Коньки</a></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card text-bg-secondary mb-3" style="width: 17rem;">
+                    <img src="{% static 'img/image_2023-10-30_04-23-26.jpg' %}" class="card-img-top" alt="Каноэ, лодки, байдарки">
+                    <div class="card-body">
+                        <h4><a href="/products" class="card-title text-centre" style="text-decoration: none;">Каноэ, лодки, байдарки</a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    {% else %}
+    <h4><b>Рады приветствовать Вас на нашем сайте! Вы вошли как <u><i>гость</i></u>.</b></h4>
+    <h4>Предлагаем пройти регистрацию/авторизацию на сайте для пользования нашими услугами.</h4>
+    <br>
+    <h4>Мы рады приветствовать вас в мире активного образа жизни и спорта. Наш магазин - ваш надежный партнер в достижении ваших спортивных целей и создании стиля, который отражает вашу страсть к активному образу жизни.</h4>
+    <br>
+    <h4>У нас вы найдете широкий ассортимент спортивных товаров, начиная от высококачественной спортивной одежды и обуви до современных тренажеров и аксессуаров, которые помогут вам оставаться в форме и добиваться выдающихся результатов. В нашем
+        <a href="#">интернет-каталоге</a> содержится довольно обширный ассортимент товара, который Вы можете подобрать для своих потребностей.</h4>
+    {% endif %}
+</div>
+{% endblock body %}

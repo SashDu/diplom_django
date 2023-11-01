@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block body %}
+<div class="container text-center">
+    <h2><b>Каталог товаров</b></h2>
+
+    <!-- Раздел с категориями товаров -->
+    <div class="col-lg-12">
+        <div class="dropdown-center">
+          <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Выберите интересующую категорию
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+              {% for category in categories %}
+              <a href="{% url 'category' category.id %}" class="dropdown-item">{{ category.view }}</a>
+              {% endfor %}
+          </ul>
+        </div>
+    </div>
+    <br>
+    {% if product_list %}
+    <!--        <div class="d-flex flex-wrap">-->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in product_list %}
+        <div class="col">
+            <div class="card mx-auto h-100" style="width: 18rem;">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="image.url">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><b>{{ product.title }}</b></h5>
+                    <h6 class="card-text">Производитель: {{ product.company }}</h6>
+                    <h6 class="card-text">{{ product.view }} ({{ product.side}})</h6>
+                    <h6 class="card-text">Цена: {{ product.price }}$</h6>
+                    <p class="card-text">{{ product.summary }}</p>
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-warning btn-sm">Подробнее</a>
+                    <a href="{% url 'add_basket' product.id %}" class="btn btn-success btn-sm">В корзину</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+    <!--    </div>-->
+    {% else %}
+    <h2>Записи в БД отсутствуют</h2>
+    {% endif %}
+
+    <!-- Раздел с категориями товаров -->
+<!--    <div class="col-lg-3">-->
+<!--        <h4 class="my-4">Категории</h4>-->
+<!--        ОКНО СО СПИСКОМ КАТЕГОРИЙ-->
+<!--        <div class="list-group">-->
+<!--            {% for category in categories %}-->
+<!--                <a href="{% url 'category' category.id %}" class="list-group-item">-->
+<!--&lt;!&ndash;                    отображение названий категорий&ndash;&gt;-->
+<!--                    {{ category.view }}-->
+<!--                </a>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        Просто выбор категории из списка, но нету последующей обработки выбора, нужна кнопка "применить"-->
+<!--        <select class="form-select" aria-label="Выбор по умолчанию">-->
+<!--          <option selected>Выберите необходимую категорию</option>-->
+<!--            {% for category in categories %}-->
+<!--                <option selected>-->
+<!--                <a href="{% url 'category' category.id %}" class="form-select">{{ category.view }}</a>-->
+<!--                </option>-->
+<!--            {% endfor %}-->
+<!--        </select>-->
+<!--    </div>-->
+    <br>
+    <!-- Кнопки перехода между страницами -->
+    <!-- request.path - текущий URl страницы -->
+    <!-- page_obj.has_previous/has_next - Есть ли страница (True) -->
+    <!-- page_obj.previous_page_number/next_page_number - Возвращают цифру предыдущей/следующей страницы соответственно -->
+    <div class="btn-group" role="group" aria-label="Second group">
+        {% if page_obj.has_previous %}
+        <a class="btn btn-sm btn-dark" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% else %}
+        <a class="btn btn-sm btn-dark" href="#">Предыдущая</a>
+        {% endif %}
+        <!-- Нумерация страниц-->
+        <a class="btn btn-sm btn-dark" href="#">{{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</a>
+        {% if page_obj.has_next %}
+        <a class="btn btn-sm btn-dark" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Следующая</a>
+        {% else %}
+        <a class="btn btn-sm btn-dark" href="#">Следующая</a>
+        {% endif %}
+    </div>
+</div>
+<br>
+{% endblock %}

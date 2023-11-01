@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+<!-- Подключение папки static -->
+{% load static %}
+
+{% block title %}
+{{ product.title }}
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container text-left">
+    <div class="col">
+        <div class="card h-100" style="width: 20rem;">
+            <a href="{{ product.get_absolute_url }}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="Фото">
+            </a>
+            <div class="card-body">
+                <h4 class="card-title"><b>{{ product.title }}</b></h4>
+                <h5>Производитель: <i>{{ product.manufacturer }}</i></h5>
+                <h5>Группа товара: <i>{{ product.view }}</i></h5>
+                <h5>Сторона: <i>{{ product.side }}</i></h5>
+                <h5>Цена: <i>{{ product.price }}$</i></h5>
+                <h5>Код товара: <i>{{ product.product_code }}</i></h5>
+                <h5>В наличии: <i>{{ product.quantity }} шт.</i></h5>
+                <p class="card-text">Описание товара: <i>{{ product.summary }}</i></p>
+            </div>
+            <div class="container text-center"></div>
+            <a href="/products" class="btn btn-primary btn-sm">Назад</a>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}
